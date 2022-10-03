@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+// creating a struct of an int and a char called roman
+typedef struct roman
+{
+    int number;
+    char letter;
+}
+roman;
+
+// creating an array of type 'roman' has 7 romans
+
+roman convert[7];
+
+// creating a function takes a string as an input and returns and int
+
+int romanToInt(char * s);
+
+int main (void)
+{
+
+    // assinging the roman (number & values) to the array
+
+    convert[0].letter = 'I';
+    convert[0].number = 1;
+
+    convert[1].letter = 'V';
+    convert[1].number = 5;
+
+    convert[2].letter = 'X';
+    convert[2].number = 10;
+
+    convert[3].letter = 'L';
+    convert[3].number = 50;
+
+    convert[4].letter = 'C';
+    convert[4].number = 100;
+
+    convert[5].letter = 'D';
+    convert[5].number = 500;
+
+    convert[6].letter = 'M';
+    convert[6].number = 1000;
+
+
+    // creaitng a string of 16 bytes size
+
+    char *s = malloc(sizeof(char) + 1);
+
+    // asking the user for the string
+
+    printf ("s: ");
+
+    scanf ("%s", s);
+
+    // assinging the length of the string in an int
+
+    int n = strlen(s);
+
+    // quiting the programe if the 1 > length > 15
+
+    if (n > 15 || n < 1)
+    {
+        printf ("n > 15 or n < 1 \n");
+        return 1;
+    }
+
+    // passing the string to the romanToInt function and recieving an int
+
+    int output = romanToInt(s);
+
+    // printing the final output
+
+    printf ("Output: %i \n", output);
+
+    // freeing the allocated memory of string s
+
+    free(s);
+
+}
+
+int romanToInt(char * s)
+{
+    // creating an int counter to track the value of the roman latters
+    int counter = 0;
+
+    // calculatint the length of the string passed in 's'
+
+    int length = strlen(s);
+
+    // creating and array to store the values of the roman letters
+
+    int value[length];
+
+    //  assinging the roman values to it's equivalent decimal values
+
+    for (int i = 0; i < length; i ++)
+    {
+        for (int j = 0; j < 7; j ++)
+        {
+
+            if ((int) s[i] == (int)convert[j].letter)
+            {
+                value[i] = convert[j].number;
+            }
+        }
+    }
+
+    // comparing values of all the roman letters to decide whether to add or subtract them
+    for (int i = 0; i < length; i ++)
+    {
+        for (int j = 1 + i; j < length + 1; j ++)
+        {
+
+            //update the counter to counter + value[i] if it's the greatest value
+            if (value[i] >= value[j] || j >= length)
+            {
+                counter += value[i];
+                break;
+            }
+
+            // if the number is less than its following number then we subtrack them and update the counter
+
+            else
+            {
+                counter = (counter - value[i]);
+                break;
+            }
+           //counter ++;
+           break;
+        }
+    }
+
+    //return the counter value to be printed as the output
+
+    return counter;
+
+}
