@@ -1,0 +1,194 @@
+#include <cs50.h>
+#include <stdio.h>
+
+long visa_13(long credit);
+long visa_16(long credit);
+long mastercard_first(long credit);
+long mastercard_second(long credit);
+long american_first(long credit);
+long american_second( long credit);
+
+
+int main(void)
+{
+// getting user's credit card number
+
+long credit = get_long ("enter your credit card number: \n");
+
+
+//creating 8 variables to store 8 digits of the visa card "starting with the number’s second-to-last digit" and multiply them by 2, then separat each number
+// into a 2 digits number to be easy to get the sum of them later on.
+
+int A = (((credit % 100) / 10)*2)%10 ;
+
+int q = ((((credit % 100) / 10)*2)%100) /10 ;
+
+int B = (((credit % 10000) / 1000)*2)%10;
+
+int w = ((((credit % 10000) / 1000)*2)%100) / 10;
+
+int C = (((credit % 1000000) / 100000)*2)%10;
+
+int e = ((((credit % 1000000) / 100000)*2)%100) / 10;
+
+int D = (((credit % 100000000) / 10000000)*2)%10;
+
+int r = ((((credit % 100000000) / 10000000)*2)%100) / 10;
+
+int E = (((credit % 10000000000) / 1000000000)*2)%10;
+
+int t = ((((credit % 10000000000) / 1000000000)*2)%100) / 10;
+
+int F = (((credit % 1000000000000) / 100000000000)*2)%10;
+
+int y = ((((credit % 1000000000000) / 100000000000)*2)%100) / 10;
+
+int G = (((credit % 100000000000000) / 10000000000000)*2)%10;
+
+int u = ((((credit % 100000000000000) / 10000000000000)*2)%100) / 10;
+
+int H = (((credit % 10000000000000000) / 1000000000000000)*2)%10;
+
+int i = ((((credit % 10000000000000000) / 1000000000000000)*2)%100) / 10;
+
+// creating 8 digits to store the rest of the credit card number to get the sum of it and complete the rest of the porcess.
+
+int a = (credit % 10);
+
+int b = (credit % 1000) / 100;
+
+int c = (credit % 100000) / 10000;
+
+int d = (credit % 10000000) / 1000000;
+
+int x = (credit % 1000000000) / 100000000;
+
+int f = (credit % 100000000000) / 10000000000;
+
+int g = (credit % 10000000000000) / 1000000000000;
+
+int h = (credit % 1000000000000000) / 100000000000000;
+
+// getting the final sum of the stored variables.
+
+int z =(A + B +C + D + E + F + G + H + q + w + e + r + t + y + u + i + a + b + c + d + x + f + g + h) %10;
+
+// checking if the sum % 10 eqals to 0 "valid credit card".
+
+if ( z % 10 == 0)
+{
+
+int P = visa_13 (credit) / 1000000000000;
+
+int V = visa_16 (credit) / 1000000000000000;
+
+
+int M = mastercard_first (credit)/ 1000000000000000;
+
+int N = mastercard_second (credit)/ 100000000000000;
+
+
+int m = american_first ( credit ) / 100000000000000;
+
+int n = american_second ( credit ) / 10000000000000;
+
+if (P == 4 || V == 4)
+{
+
+   printf("VISA\n");
+
+
+}
+
+
+
+ else if ((M == 5) && (N ==1 || N == 2 || N == 3 || N == 4 || N == 5))
+{
+
+
+   printf ("MASTERCARD\n");
+
+
+}
+
+
+
+else if (( m == 3) && (n == 4 || n == 7))
+{
+
+
+   printf ("AMEX\n");
+
+
+}
+
+else
+{
+   printf ("INVALID\n");
+
+}
+
+
+}
+
+
+else
+{
+   printf ("INVALID\n");
+
+}
+
+
+
+}
+
+
+
+// to detect  if the number was a 13 digits VISA card number.
+
+long visa_13(long credit)
+{
+
+return  credit %10000000000000;
+}
+// to detect  if the number was a 16 digits VISA card number.
+
+long visa_16(long credit)
+{
+
+   return  credit %10000000000000000;
+}
+
+// to detect  if the credit number starts with the digit 5.
+
+long mastercard_first(long credit)
+{
+
+   return  credit %10000000000000000;
+}
+
+// to detect  if the credit number starts with the digit 1, 2, 3, 4, 5.
+
+
+long mastercard_second(long credit)
+{
+
+   return credit %1000000000000000;
+}
+
+
+// to detect  if the credit number starts with the digit 3.
+
+long american_first(long credit)
+ {
+
+   return credit %1000000000000000;
+ }
+
+// to detect  if the credit number starts with the digit 4, 7.
+
+long american_second( long credit)
+ {
+
+   return credit %100000000000000;
+ }
