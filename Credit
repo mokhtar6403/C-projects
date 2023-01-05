@@ -185,7 +185,7 @@ long american_first(long credit)
    return credit %1000000000000000;
  }
 
-// to detect  if the credit number starts with the digit 4, 7.
+// to detect  if the credit number starts with the digit 4 or 7.
 
 long american_second( long credit)
  {
